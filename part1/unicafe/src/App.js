@@ -8,10 +8,50 @@ const FeedbackButton = ({ name, handleClick }) => {
 	);
 };
 
-const Statistics = ({ name, count }) => {
+const FeedBack = ({ countG, countN, countB, setG, setN, setB }) => {
+	return (
+		<div>
+			<h1>Give FeedBack:</h1>
+			<FeedbackButton name="Good" handleClick={() => setG(countG + 1)} />
+			<FeedbackButton
+				name="Neutral"
+				handleClick={() => setN(countN + 1)}
+			/>
+			<FeedbackButton name="Bad" handleClick={() => setB(countB + 1)} />
+		</div>
+	);
+};
+
+const StatisticsBasic = ({ name, count }) => {
 	return (
 		<div>
 			{name}: {count}
+		</div>
+	);
+};
+
+const StatisticsExtra = ({ good, neutral, bad }) => {
+	let all = good + neutral + bad;
+	let average = (good - bad) / all;
+
+	return (
+		<div>
+			<p>All Records: {all}</p>
+			<p>Average Score: {average}</p>
+			<p>Positive: {(good / all) * 100}%</p>
+		</div>
+	);
+};
+
+const Statistics = ({ good, neutral, bad }) => {
+	return (
+		<div>
+			<h1>Statistics:</h1>
+			<StatisticsBasic name="Good" count={good} />
+			<StatisticsBasic name="Neutral" count={neutral} />
+			<StatisticsBasic name="Bad" count={bad} />
+
+			<StatisticsExtra good={good} neutral={neutral} bad={bad} />
 		</div>
 	);
 };
@@ -24,18 +64,16 @@ const App = () => {
 
 	return (
 		<div>
-			<h1>Give Feedback:</h1>
-			<FeedbackButton name="Good" handleClick={() => setGood(good + 1)} />
-			<FeedbackButton
-				name="Neutral"
-				handleClick={() => setNeutral(neutral + 1)}
+			<FeedBack
+				countG={good}
+				countN={neutral}
+				countB={bad}
+				setG={setGood}
+				setN={setNeutral}
+				setB={setBad}
 			/>
-			<FeedbackButton name="Bad" handleClick={() => setBad(bad + 1)} />
 
-			<h1>Statistics:</h1>
-			<Statistics name="Good" count={good} />
-			<Statistics name="Neutral" count={neutral} />
-			<Statistics name="Bad" count={bad} />
+			<Statistics good={good} neutral={neutral} bad={bad} />
 		</div>
 	);
 };
