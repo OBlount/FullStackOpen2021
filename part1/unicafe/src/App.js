@@ -44,16 +44,25 @@ const StatisticsExtra = ({ good, neutral, bad }) => {
 };
 
 const Statistics = ({ good, neutral, bad }) => {
-	return (
-		<div>
-			<h1>Statistics:</h1>
-			<StatisticsBasic name="Good" count={good} />
-			<StatisticsBasic name="Neutral" count={neutral} />
-			<StatisticsBasic name="Bad" count={bad} />
+	if (good + neutral + bad > 0) {
+		return (
+			<div>
+				<h1>Statistics:</h1>
+				<StatisticsBasic name="Good" count={good} />
+				<StatisticsBasic name="Neutral" count={neutral} />
+				<StatisticsBasic name="Bad" count={bad} />
 
-			<StatisticsExtra good={good} neutral={neutral} bad={bad} />
-		</div>
-	);
+				<StatisticsExtra good={good} neutral={neutral} bad={bad} />
+			</div>
+		);
+	} else {
+		return (
+			<div>
+				<h1>Statistics:</h1>
+				<p>No Feedback given.</p>
+			</div>
+		);
+	}
 };
 
 const App = () => {
