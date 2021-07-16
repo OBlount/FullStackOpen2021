@@ -1,20 +1,37 @@
 import React, { useState } from 'react';
 
-const Button = ({ setter, anecdotes }) => {
-	return (
-		<button
-			onClick={() => setter(Math.floor(Math.random() * anecdotes.length))}
-		>
-			Next anecdote
-		</button>
-	);
+const ShowCaseButton = ({ setter, anecdotes }) => {
+	const handleNewAnecdote = () => {
+		setter(Math.floor(Math.random() * anecdotes.length));
+	};
+
+	return <button onClick={handleNewAnecdote}>Next anecdote</button>;
 };
 
 const ShowCase = ({ selected, setter, anecdotes }) => {
 	return (
 		<div>
 			<h3>{anecdotes[selected]}</h3>
-			<Button setter={setter} anecdotes={anecdotes} />
+			<ShowCaseButton setter={setter} anecdotes={anecdotes} />
+		</div>
+	);
+};
+
+const VoterButton = ({ setter, points, selected }) => {
+	const handleVote = () => {
+		let copyPoints = [...points];
+		copyPoints[selected] += 1;
+		setter(copyPoints);
+	};
+
+	return <button onClick={handleVote}>Vote</button>;
+};
+
+const Voter = ({ points, selected, setter }) => {
+	return (
+		<div>
+			has {points[selected]} vote(s)
+			<VoterButton setter={setter} points={points} selected={selected} />
 		</div>
 	);
 };
@@ -31,6 +48,9 @@ const App = () => {
 	];
 
 	const [selected, setSelected] = useState(0);
+	const [points, setPoints] = useState(
+		new Array(anecdotes.length + 1).join('0').split('').map(parseFloat)
+	);
 
 	return (
 		<div>
@@ -39,6 +59,8 @@ const App = () => {
 				setter={setSelected}
 				anecdotes={anecdotes}
 			/>
+
+			<Voter points={points} selected={selected} setter={setPoints} />
 		</div>
 	);
 };
