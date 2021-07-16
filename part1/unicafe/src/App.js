@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const FeedbackButton = ({ name, handleClick }) => {
+const Button = ({ name, handleClick }) => {
 	return (
 		<div>
 			<button onClick={handleClick}>{name}</button>
@@ -12,17 +12,14 @@ const FeedBack = ({ countG, countN, countB, setG, setN, setB }) => {
 	return (
 		<div>
 			<h1>Give FeedBack:</h1>
-			<FeedbackButton name="Good" handleClick={() => setG(countG + 1)} />
-			<FeedbackButton
-				name="Neutral"
-				handleClick={() => setN(countN + 1)}
-			/>
-			<FeedbackButton name="Bad" handleClick={() => setB(countB + 1)} />
+			<Button name="Good" handleClick={() => setG(countG + 1)} />
+			<Button name="Neutral" handleClick={() => setN(countN + 1)} />
+			<Button name="Bad" handleClick={() => setB(countB + 1)} />
 		</div>
 	);
 };
 
-const StatisticsBasic = ({ name, count }) => {
+const Statistic = ({ name, count }) => {
 	return (
 		<div>
 			{name}: {count}
@@ -48,9 +45,9 @@ const Statistics = ({ good, neutral, bad }) => {
 		return (
 			<div>
 				<h1>Statistics:</h1>
-				<StatisticsBasic name="Good" count={good} />
-				<StatisticsBasic name="Neutral" count={neutral} />
-				<StatisticsBasic name="Bad" count={bad} />
+				<Statistic name="Good" count={good} />
+				<Statistic name="Neutral" count={neutral} />
+				<Statistic name="Bad" count={bad} />
 
 				<StatisticsExtra good={good} neutral={neutral} bad={bad} />
 			</div>
