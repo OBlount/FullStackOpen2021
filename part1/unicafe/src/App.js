@@ -21,22 +21,44 @@ const FeedBack = ({ countG, countN, countB, setG, setN, setB }) => {
 
 const Statistic = ({ name, count }) => {
 	return (
-		<div>
-			{name}: {count}
-		</div>
+		<tr>
+			<td>{name}</td>
+			<td>{count}</td>
+		</tr>
 	);
 };
 
-const StatisticsExtra = ({ good, neutral, bad }) => {
-	let all = good + neutral + bad;
-	let average = (good - bad) / all;
+const StatisticAll = ({ good, neutral, bad }) => {
+	const all = good + neutral + bad;
 
 	return (
-		<div>
-			<p>All Records: {all}</p>
-			<p>Average Score: {average}</p>
-			<p>Positive: {(good / all) * 100}%</p>
-		</div>
+		<tr>
+			<td>All Records</td>
+			<td>{all}</td>
+		</tr>
+	);
+};
+
+const StatisticAverage = ({ good, neutral, bad }) => {
+	const all = good + neutral + bad;
+	const average = (good - bad) / all;
+
+	return (
+		<tr>
+			<td>Average Score</td>
+			<td>{average}</td>
+		</tr>
+	);
+};
+
+const StatisticPositive = ({ good, neutral, bad }) => {
+	const all = good + neutral + bad;
+
+	return (
+		<tr>
+			<td>Positive</td>
+			<td>{(good / all) * 100}%</td>
+		</tr>
 	);
 };
 
@@ -45,11 +67,25 @@ const Statistics = ({ good, neutral, bad }) => {
 		return (
 			<div>
 				<h1>Statistics:</h1>
-				<Statistic name="Good" count={good} />
-				<Statistic name="Neutral" count={neutral} />
-				<Statistic name="Bad" count={bad} />
+				<table>
+					<tbody>
+						<Statistic name="Good" count={good} />
+						<Statistic name="Neutral" count={neutral} />
+						<Statistic name="Bad" count={bad} />
 
-				<StatisticsExtra good={good} neutral={neutral} bad={bad} />
+						<StatisticAll good={good} neutral={neutral} bad={bad} />
+						<StatisticAverage
+							good={good}
+							neutral={neutral}
+							bad={bad}
+						/>
+						<StatisticPositive
+							good={good}
+							neutral={neutral}
+							bad={bad}
+						/>
+					</tbody>
+				</table>
 			</div>
 		);
 	} else {
