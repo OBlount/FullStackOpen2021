@@ -3,14 +3,20 @@ import Header from './Header.js';
 import Content from './Content.js';
 import Total from './Total.js';
 
-const Course = ({ course }) => {
+const Course = ({ courses }) => {
 	return (
 		<div>
-			<Header courseName={course.name} />
-			{course.parts.map((part) => {
-				return <Content key={part.id} coursePart={part} />;
+			{courses.map((course) => {
+				return (
+					<div key={course.id}>
+						<Header courseName={course.name} />
+						{course.parts.map((part) => {
+							return <Content key={part.id} coursePart={part} />;
+						})}
+						<Total courseParts={course.parts} />
+					</div>
+				);
 			})}
-			<Total courseParts={course.parts} />
 		</div>
 	);
 };
