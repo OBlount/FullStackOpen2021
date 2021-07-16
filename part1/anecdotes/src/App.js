@@ -11,8 +11,9 @@ const ShowCaseButton = ({ setter, anecdotes }) => {
 const ShowCase = ({ selected, setter, anecdotes }) => {
 	return (
 		<div>
-			<h3>{anecdotes[selected]}</h3>
+			<h1>Anecdote of the day:</h1>
 			<ShowCaseButton setter={setter} anecdotes={anecdotes} />
+			<h3>{anecdotes[selected]}</h3>
 		</div>
 	);
 };
@@ -30,8 +31,20 @@ const VoterButton = ({ setter, points, selected }) => {
 const Voter = ({ points, selected, setter }) => {
 	return (
 		<div>
-			has {points[selected]} vote(s)
+			<p>has {points[selected]} vote(s)</p>
 			<VoterButton setter={setter} points={points} selected={selected} />
+		</div>
+	);
+};
+
+const BestAnecdote = ({ points, anecdotes }) => {
+	const topPointsIndex = points.indexOf(Math.max(...points));
+
+	return (
+		<div>
+			<h1>The top rated anecdote:</h1>
+			<h3>{anecdotes[topPointsIndex]}</h3>
+			<p>has {points[topPointsIndex]} vote(s)</p>
 		</div>
 	);
 };
@@ -61,6 +74,8 @@ const App = () => {
 			/>
 
 			<Voter points={points} selected={selected} setter={setPoints} />
+
+			<BestAnecdote points={points} anecdotes={anecdotes} />
 		</div>
 	);
 };
