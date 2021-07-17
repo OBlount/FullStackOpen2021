@@ -8,8 +8,16 @@ const AddNumber = ({ persons, setPersons, newName, setNewName }) => {
 			id: persons.length + 1,
 		};
 
-		setPersons(persons.concat(newNumber));
-		setNewName('');
+		const submittedNames = persons.map((person) => person.name);
+		if (submittedNames.includes(newNumber.name)) {
+			alert(
+				`'${newNumber.name}' already exists in the phonebook. Please input a new name.`
+			);
+			setNewName('');
+		} else {
+			setPersons(persons.concat(newNumber));
+			setNewName('');
+		}
 	};
 
 	const handleNameInput = (event) => {
