@@ -1,22 +1,32 @@
 import React from 'react';
 
-const AddNumber = ({ persons, setPersons, newName, setNewName }) => {
+const AddNumber = ({
+	persons,
+	setPersons,
+	newName,
+	setNewName,
+	newNumber,
+	setNewNumber,
+}) => {
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		const newNumber = {
+		const newPerson = {
 			name: newName,
+			number: newNumber,
 			id: persons.length + 1,
 		};
 
 		const submittedNames = persons.map((person) => person.name);
-		if (submittedNames.includes(newNumber.name)) {
+		if (submittedNames.includes(newPerson.name)) {
 			alert(
-				`'${newNumber.name}' already exists in the phonebook. Please input a new name.`
+				`'${newPerson.name}' already exists in the phonebook. Please input a new name.`
 			);
 			setNewName('');
+			setNewNumber('');
 		} else {
-			setPersons(persons.concat(newNumber));
+			setPersons(persons.concat(newPerson));
 			setNewName('');
+			setNewNumber('');
 		}
 	};
 
@@ -24,12 +34,24 @@ const AddNumber = ({ persons, setPersons, newName, setNewName }) => {
 		setNewName(event.target.value);
 	};
 
+	const handleNumberInput = (event) => {
+		setNewNumber(event.target.value);
+	};
+
 	return (
 		<div>
 			<h2>Add Number:</h2>
 			<form onSubmit={handleSubmit}>
-				Name: <input value={newName} onChange={handleNameInput} />{' '}
-				<button type="submit">Add</button>
+				<div>
+					Name: <input value={newName} onChange={handleNameInput} />
+				</div>
+				<div>
+					Number:
+					<input value={newNumber} onChange={handleNumberInput} />
+				</div>
+				<div>
+					<button type="submit">Add</button>
+				</div>
 			</form>
 		</div>
 	);
