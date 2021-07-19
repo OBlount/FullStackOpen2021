@@ -1,6 +1,11 @@
 import React from 'react';
+import CountryButton from './CountryButton';
 
-const CountryStats = ({ allCountries, selectedCountry }) => {
+const CountryStats = ({
+	allCountries,
+	selectedCountry,
+	setSelectedCountry,
+}) => {
 	const filteredCountries = allCountries.filter((country) =>
 		country.name.toLowerCase().includes(selectedCountry.toLowerCase())
 	);
@@ -47,7 +52,13 @@ const CountryStats = ({ allCountries, selectedCountry }) => {
 		return (
 			<div>
 				{filteredCountries.map((country) => (
-					<div key={country.alpha2Code}>{country.name}</div>
+					<div key={country.alpha2Code}>
+						{country.name}
+						<CountryButton
+							countryName={country.name}
+							setSelectedCountry={setSelectedCountry}
+						/>
+					</div>
 				))}
 			</div>
 		);

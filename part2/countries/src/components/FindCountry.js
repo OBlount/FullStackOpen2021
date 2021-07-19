@@ -12,6 +12,7 @@ const FindCountry = ({ selectedCountry, setSelectedCountry, allCountries }) => {
 			<Finder
 				allCountries={allCountries}
 				selectedCountry={selectedCountry}
+				setSelectedCountry={setSelectedCountry}
 			/>
 		</div>
 	);
