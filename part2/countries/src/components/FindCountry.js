@@ -1,7 +1,13 @@
 import React from 'react';
-import Finder from './CountryStats';
+import CountryStats from './CountryStats';
 
-const FindCountry = ({ selectedCountry, setSelectedCountry, allCountries }) => {
+const FindCountry = ({
+	selectedCountry,
+	setSelectedCountry,
+	allCountries,
+	currentWeather,
+	setCurrentWeather,
+}) => {
 	const handleCountryInput = (event) =>
 		setSelectedCountry(event.target.value);
 
@@ -9,10 +15,12 @@ const FindCountry = ({ selectedCountry, setSelectedCountry, allCountries }) => {
 		<div>
 			Find Country:
 			<input value={selectedCountry} onChange={handleCountryInput} />
-			<Finder
+			<CountryStats
 				allCountries={allCountries}
 				selectedCountry={selectedCountry}
 				setSelectedCountry={setSelectedCountry}
+				currentWeather={currentWeather}
+				setCurrentWeather={setCurrentWeather}
 			/>
 		</div>
 	);

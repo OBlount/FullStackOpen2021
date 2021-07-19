@@ -5,12 +5,11 @@ import axios from 'axios';
 function App() {
 	const [allCountries, setAllCountries] = useState([]);
 	const [selectedCountry, setSelectedCountry] = useState('');
-	const urlString = 'https://restcountries.eu/rest/v2/all';
+	const [currentWeather, setCurrentWeather] = useState([]);
+	const countryUrlString = 'https://restcountries.eu/rest/v2/all';
 
 	useEffect(() => {
-		axios.get(urlString).then((res) => {
-			setAllCountries(res.data);
-		});
+		axios.get(countryUrlString).then((res) => setAllCountries(res.data));
 	}, []);
 
 	return (
@@ -19,6 +18,8 @@ function App() {
 				selectedCountry={selectedCountry}
 				setSelectedCountry={setSelectedCountry}
 				allCountries={allCountries}
+				currentWeather={currentWeather}
+				setCurrentWeather={setCurrentWeather}
 			/>
 		</div>
 	);

@@ -1,10 +1,13 @@
 import React from 'react';
 import CountryButton from './CountryButton';
+import Weather from './Weather';
 
 const CountryStats = ({
 	allCountries,
 	selectedCountry,
 	setSelectedCountry,
+	currentWeather,
+	setCurrentWeather,
 }) => {
 	const filteredCountries = allCountries.filter((country) =>
 		country.name.toLowerCase().includes(selectedCountry.toLowerCase())
@@ -34,7 +37,7 @@ const CountryStats = ({
 					Population: {countryInQuestion.population}
 				</p>
 
-				<h1>languages:</h1>
+				<h1>Languages:</h1>
 				<ul>
 					{countryInQuestion.languages.map((language) => (
 						<li key={language.iso639_2}>{language.name}</li>
@@ -45,6 +48,12 @@ const CountryStats = ({
 					src={countryInQuestion.flag}
 					alt={countryInQuestion.name}
 					width="10%;"
+				/>
+
+				<Weather
+					currentWeather={currentWeather}
+					setCurrentWeather={setCurrentWeather}
+					countryCapital={countryInQuestion.capital}
 				/>
 			</div>
 		);
