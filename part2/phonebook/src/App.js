@@ -12,9 +12,7 @@ const App = () => {
 	const urlString = 'http://localhost:3001/persons';
 
 	useEffect(() => {
-		axios.get(urlString).then((res) => {
-			setPersons(res.data);
-		});
+		axios.get(urlString).then((res) => setPersons(res.data));
 	}, []);
 
 	return (

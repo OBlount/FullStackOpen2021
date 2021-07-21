@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 const AddNumber = ({
 	persons,
@@ -9,7 +10,9 @@ const AddNumber = ({
 	setNewNumber,
 }) => {
 	const handleSubmit = (event) => {
+		const baseURL = 'http://localhost:3001/persons';
 		event.preventDefault();
+
 		const newPerson = {
 			name: newName,
 			number: newNumber,
@@ -24,7 +27,11 @@ const AddNumber = ({
 			setNewName('');
 			setNewNumber('');
 		} else {
-			setPersons(persons.concat(newPerson));
+			axios
+				.post(baseURL, newPerson)
+				.then((res) => setPersons(persons.concat(res.data)))
+				.catch((err) => alert(err));
+
 			setNewName('');
 			setNewNumber('');
 		}
