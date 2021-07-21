@@ -9,7 +9,22 @@ const AddNumber = ({
 	newNumber,
 	setNewNumber,
 	setNotification,
+	setNotificationType,
 }) => {
+	const handleUpdateException = (name) => {
+		NumberService.getAll()
+			.then((res) => setPersons(res))
+			.then(() => {
+				setNotificationType('error');
+				setNotification(
+					`Something went wrong. ${name} has already been removed`
+				);
+
+				setTimeout(() => setNotification(null), 4000);
+			})
+			.catch((err) => console.log(err));
+	};
+
 	const handleSubmit = (event) => {
 		event.preventDefault();
 
@@ -40,13 +55,14 @@ const AddNumber = ({
 						)
 					)
 					.then(() => {
+						setNotificationType('notification');
 						setNotification(
 							`Successfully changed ${newPerson.name}'s number`
 						);
 
 						setTimeout(() => setNotification(null), 3000);
 					})
-					.catch((err) => console.log(err));
+					.catch(() => handleUpdateException(newPerson.name));
 			}
 			setNewName('');
 			setNewNumber('');
@@ -54,6 +70,7 @@ const AddNumber = ({
 			NumberService.create(newPerson)
 				.then((res) => setPersons(persons.concat(res)))
 				.then(() => {
+					setNotificationType('notification');
 					setNotification(`Successfully added ${newPerson.name}`);
 
 					setTimeout(() => setNotification(null), 3000);

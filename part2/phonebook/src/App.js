@@ -11,6 +11,7 @@ const App = () => {
 	const [newNumber, setNewNumber] = useState('');
 	const [filter, setFilter] = useState('');
 	const [notification, setNotification] = useState(null);
+	const [notificationType, setNotificationType] = useState('error');
 
 	useEffect(() => {
 		NumberService.getAll()
@@ -22,7 +23,7 @@ const App = () => {
 		<div>
 			<h1>Phonebook</h1>
 
-			<Notification message={notification} />
+			<Notification message={notification} type={notificationType} />
 
 			<Filter filter={filter} setFilter={setFilter} />
 
@@ -34,6 +35,7 @@ const App = () => {
 				newNumber={newNumber}
 				setNewNumber={setNewNumber}
 				setNotification={setNotification}
+				setNotificationType={setNotificationType}
 			/>
 
 			<Numbers
