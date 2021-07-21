@@ -31,19 +31,33 @@ const AddNumber = ({
 				);
 				newPerson = { ...oldPerson, number: newNumber };
 
-				NumberService.update(newPerson.id, newPerson).then((person) =>
-					setPersons(
-						persons.map((aPerson) =>
-							aPerson.id !== newPerson.id ? aPerson : person
+				NumberService.update(newPerson.id, newPerson)
+					.then((person) =>
+						setPersons(
+							persons.map((aPerson) =>
+								aPerson.id !== newPerson.id ? aPerson : person
+							)
 						)
 					)
-				);
+					.then(() => {
+						setNotification(
+							`Successfully changed ${newPerson.name}'s number`
+						);
+
+						setTimeout(() => setNotification(null), 3000);
+					})
+					.catch((err) => console.log(err));
 			}
 			setNewName('');
 			setNewNumber('');
 		} else {
 			NumberService.create(newPerson)
 				.then((res) => setPersons(persons.concat(res)))
+				.then(() => {
+					setNotification(`Successfully added ${newPerson.name}`);
+
+					setTimeout(() => setNotification(null), 3000);
+				})
 				.catch((err) => console.log(err));
 
 			setNewName('');
