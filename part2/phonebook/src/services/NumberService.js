@@ -16,10 +16,16 @@ const remove = (personsID) => {
 	return req.then((res) => res.data);
 };
 
+const update = (personsID, newPerson) => {
+	const req = axios.put(`${baseURL}${personsID}`, newPerson);
+	return req.then((res) => res.data);
+};
+
 const NumberService = {
 	getAll: getAll,
 	create: create,
 	remove: remove,
+	update: update,
 };
 
 export default NumberService;

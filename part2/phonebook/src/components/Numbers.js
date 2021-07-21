@@ -30,6 +30,12 @@ const Numbers = ({ persons, setPersons, filter }) => {
 				{filteredPeople.map((person) => (
 					<div key={person.id}>
 						{person.name} - {person.number}
+						<DeleteButton
+							personsID={person.id}
+							personsName={person.name}
+							persons={persons}
+							setPersons={setPersons}
+						/>
 					</div>
 				))}
 			</div>

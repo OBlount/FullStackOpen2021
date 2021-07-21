@@ -8,21 +8,37 @@ const AddNumber = ({
 	setNewName,
 	newNumber,
 	setNewNumber,
+	setNotification,
 }) => {
 	const handleSubmit = (event) => {
 		event.preventDefault();
 
-		const newPerson = {
+		let newPerson = {
 			name: newName,
 			number: newNumber,
-			id: persons.length + 1,
+			id: Math.max(persons.map((person) => person.id)) + 1,
 		};
 
 		const submittedNames = persons.map((person) => person.name);
 		if (submittedNames.includes(newPerson.name)) {
-			alert(
-				`'${newPerson.name}' already exists in the phonebook. Please input a new name.`
-			);
+			if (
+				window.confirm(
+					`'${newPerson.name}' already exists in the phonebook. Do you want to replace them with the new number?`
+				)
+			) {
+				const oldPerson = persons.find(
+					(person) => person.name === newPerson.name
+				);
+				newPerson = { ...oldPerson, number: newNumber };
+
+				NumberService.update(newPerson.id, newPerson).then((person) =>
+					setPersons(
+						persons.map((aPerson) =>
+							aPerson.id !== newPerson.id ? aPerson : person
+						)
+					)
+				);
+			}
 			setNewName('');
 			setNewNumber('');
 		} else {
