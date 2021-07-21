@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from 'axios';
+import NumberService from '../services/NumberService.js';
 
 const AddNumber = ({
 	persons,
@@ -10,7 +10,6 @@ const AddNumber = ({
 	setNewNumber,
 }) => {
 	const handleSubmit = (event) => {
-		const baseURL = 'http://localhost:3001/persons';
 		event.preventDefault();
 
 		const newPerson = {
@@ -27,10 +26,9 @@ const AddNumber = ({
 			setNewName('');
 			setNewNumber('');
 		} else {
-			axios
-				.post(baseURL, newPerson)
-				.then((res) => setPersons(persons.concat(res.data)))
-				.catch((err) => alert(err));
+			NumberService.create(newPerson)
+				.then((res) => setPersons(persons.concat(res)))
+				.catch((err) => console.log(err));
 
 			setNewName('');
 			setNewNumber('');

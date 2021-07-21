@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import AddNumber from './components/AddNumber.js';
-import Filter from './components/Filter.js';
 import Numbers from './components/Numbers.js';
-import axios from 'axios';
+import Filter from './components/Filter.js';
+import NumberService from './services/NumberService.js';
 
 const App = () => {
 	const [persons, setPersons] = useState([]);
 	const [newName, setNewName] = useState('');
 	const [newNumber, setNewNumber] = useState('');
 	const [filter, setFilter] = useState('');
-	const urlString = 'http://localhost:3001/persons';
 
 	useEffect(() => {
-		axios.get(urlString).then((res) => setPersons(res.data));
+		NumberService.getAll()
+			.then((res) => setPersons(res))
+			.catch((err) => console.log(err));
 	}, []);
 
 	return (
