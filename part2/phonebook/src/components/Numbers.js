@@ -1,6 +1,7 @@
 import React from 'react';
+import DeleteButton from './DeleteButton.js';
 
-const Numbers = ({ persons, filter }) => {
+const Numbers = ({ persons, setPersons, filter }) => {
 	if (!filter) {
 		return (
 			<div>
@@ -8,6 +9,12 @@ const Numbers = ({ persons, filter }) => {
 				{persons.map((person) => (
 					<div key={person.id}>
 						{person.name} - {person.number}
+						<DeleteButton
+							personsID={person.id}
+							personsName={person.name}
+							persons={persons}
+							setPersons={setPersons}
+						/>
 					</div>
 				))}
 			</div>
